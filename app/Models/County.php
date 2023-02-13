@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * App\Models\County
@@ -24,4 +25,9 @@ use Illuminate\Database\Eloquent\Model;
 class County extends Model
 {
     use HasFactory;
+
+    public function cities(): HasMany
+    {
+        return $this->hasMany(CountyCity::class);
+    }
 }
