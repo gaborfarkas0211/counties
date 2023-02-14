@@ -2,9 +2,12 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\Cache;
 
 /**
  * App\Models\County
@@ -13,13 +16,13 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property string $name
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @method static \Illuminate\Database\Eloquent\Builder|County newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|County newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|County query()
- * @method static \Illuminate\Database\Eloquent\Builder|County whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|County whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|County whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|County whereUpdatedAt($value)
+ * @method static Builder|County newModelQuery()
+ * @method static Builder|County newQuery()
+ * @method static Builder|County query()
+ * @method static Builder|County whereCreatedAt($value)
+ * @method static Builder|County whereId($value)
+ * @method static Builder|County whereName($value)
+ * @method static Builder|County whereUpdatedAt($value)
  * @mixin \Eloquent
  */
 class County extends Model
@@ -29,5 +32,12 @@ class County extends Model
     public function cities(): HasMany
     {
         return $this->hasMany(CountyCity::class);
+    }
+
+    public static function getOrderedCounties(): Collection
+    {
+        return Cache::remember('counties', 60 * 60, fn() => self::query()
+            ->orderBy('name')
+            ->get());
     }
 }

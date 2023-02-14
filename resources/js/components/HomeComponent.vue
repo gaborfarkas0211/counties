@@ -1,15 +1,18 @@
 <template>
     <div>
-        {{ message }}
+        <county-selector-component></county-selector-component>
     </div>
 </template>
 
 <script>
+import CountySelectorComponent from "./CountySelectorComponent.vue";
+
 export default {
     data() {
-        return {
-            message: 'Hello Vue'
-        }
+        return {}
     },
+    components: {
+        CountySelectorComponent
+    }
 }
 </script>
