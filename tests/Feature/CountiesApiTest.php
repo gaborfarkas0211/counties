@@ -2,6 +2,8 @@
 
 namespace Tests\Feature;
 
+use App\Models\City;
+use App\Models\County;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 use Database\Seeders\CountySeeder;
@@ -50,5 +52,40 @@ class CountiesApiTest extends TestCase
             $this->assertArrayHasKey('name', $county);
             $this->assertIsString($county['name']);
         }
+    }
+
+    public function test_county_show_cities_endpoint_returns_correct_data_structure()
+    {
+        $county = County::query()->inRandomOrder()->first();
+        City::factory()->create(['county_id' => $county->id]);
+
+        $response = $this->get('/api/counties/' . $county->id . '/cities');
+
+        $response->assertStatus(200)
+            ->assertJsonStructure([
+                'success',
+                'data' => [
+                    '*' => [
+                        'id',
+                        'name'
+                    ]
+                ]
+            ]);
+    }
+
+    public function test_county_show_cities_endpoint_returns_correct_data()
+    {
+        $county = County::query()->inRandomOrder()->first();
+        $city = City::factory()->create(['county_id' => $county->id]);
+
+        $response = $this->get('/api/counties/' . $county->id . '/cities');
+
+        $response->assertStatus(200)
+            ->assertJson([
+                'success' => true,
+                'data' => [
+                    ['id' => $city->id, 'name' => $city->name],
+                ]
+            ]);
     }
 }
