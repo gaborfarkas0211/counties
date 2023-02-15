@@ -1,6 +1,7 @@
 {
     "labels": {
         "county": "Megye",
+        "cities": "Városok",
         "new_city": "Új város"
     },
     "buttons": {

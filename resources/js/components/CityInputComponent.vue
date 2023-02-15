@@ -1,20 +1,20 @@
 <template>
-    <div class="row">
-        <div class="col-4 d-flex flex-column border rounded p-2">
-            <div class="d-flex align-items-center mb-2">
-                <label for="city-input" class="fw-bold text-uppercase px-2">
-                    {{ $t('labels.new_city') }} <span class="text-danger">*</span>
-                </label>
-                <input id="city-input"
-                       class="form-control"
-                       :class="error ? 'is-invalid' : ''"
-                       v-model="name"
-                       required
-                       @input="error = false"
-                >
-            </div>
-            <div class="d-flex justify-content-end">
-                <button class="btn btn-primary" @click="addNewCity" :disabled="null === name">
+    <div class="border rounded p-2">
+        <div class="mb-3 d-flex align-items-center p-2">
+            <label for="city-input" class="fw-bold text-uppercase px-2">
+                {{ $t('labels.new_city') }} <span class="text-danger">*</span>
+            </label>
+            <input id="city-input"
+                   class="form-control"
+                   :class="error ? 'is-invalid' : ''"
+                   v-model="name"
+                   required
+                   @input="error = false"
+            >
+        </div>
+        <div class="row">
+            <div class="col">
+                <button class="btn btn-primary float-end" @click="addNewCity" :disabled="null === name">
                     {{ $t('buttons.new_city') }}
                 </button>
             </div>

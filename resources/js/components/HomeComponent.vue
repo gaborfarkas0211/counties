@@ -1,19 +1,24 @@
 <template>
-    <div>
-        <div class="pb-2">
-            <county-selector-component :counties="counties" @county-selected="onCountySelected"></county-selector-component>
+    <div class="row">
+        <div class="col-lg-4 offset-1">
+            <county-selector-component :counties="counties"
+                                       @county-selected="onCountySelected"></county-selector-component>
+            <city-input-component :selectedCounty="selectedCounty"
+                                  @city-created="onCityCreated"
+                                  v-if="selectedCounty"
+            >
+            </city-input-component>
         </div>
-        <city-input-component v-if="selectedCounty"
-                              :selectedCounty="selectedCounty"
-                              @city-created="onCityCreated"
-        >
-        </city-input-component>
+        <div class="col-lg-4 overflow-auto offset-1 offset-md-0">
+            <city-list-component v-if="selectedCounty" :selected-county="selectedCounty"></city-list-component>
+        </div>
     </div>
 </template>
 
 <script>
 import CountySelectorComponent from "./CountySelectorComponent.vue";
 import CityInputComponent from "./CityInputComponent.vue";
+import CityListComponent from "./CityListComponent.vue";
 
 export default {
     data() {
@@ -26,6 +31,7 @@ export default {
     components: {
         CountySelectorComponent,
         CityInputComponent,
+        CityListComponent,
     },
     mounted() {
         this.getCounties()
