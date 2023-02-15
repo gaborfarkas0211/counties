@@ -36,6 +36,10 @@ export default {
         selectedCounty: {
             type: Object,
             required: true,
+        },
+        createdCity: {
+            type: Object,
+            required: false,
         }
     },
     methods: {
@@ -43,12 +47,15 @@ export default {
             axios.get('/api/counties/' + this.selectedCounty.id + '/cities').then(response => {
                 this.cities = response.data.data;
             });
-        }
+        },
     },
     watch: {
         selectedCounty() {
             this.getCities()
-        }
+        },
+        createdCity() {
+            this.getCities()
+        },
     }
 };
 </script>

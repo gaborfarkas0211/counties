@@ -10,7 +10,11 @@
             </city-input-component>
         </div>
         <div class="col-lg-4 overflow-auto offset-1 offset-md-0">
-            <city-list-component v-if="selectedCounty" :selected-county="selectedCounty"></city-list-component>
+            <city-list-component v-if="selectedCounty"
+                                 :selected-county="selectedCounty"
+                                 :createdCity="createdCity"
+            >
+            </city-list-component>
         </div>
     </div>
 </template>
