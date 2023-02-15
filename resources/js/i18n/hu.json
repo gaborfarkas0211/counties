@@ -1,5 +1,9 @@
 {
     "labels": {
-        "county": "Megye"
+        "county": "Megye",
+        "new_city": "Új város"
+    },
+    "buttons": {
+        "new_city" : "Felvesz"
     }
 }

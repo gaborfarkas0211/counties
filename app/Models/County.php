@@ -16,6 +16,8 @@ use Illuminate\Support\Facades\Cache;
  * @property string $name
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read Collection<int, \App\Models\City> $cities
+ * @property-read int|null $cities_count
  * @method static Builder|County newModelQuery()
  * @method static Builder|County newQuery()
  * @method static Builder|County query()
@@ -31,7 +33,7 @@ class County extends Model
 
     public function cities(): HasMany
     {
-        return $this->hasMany(CountyCity::class);
+        return $this->hasMany(City::class);
     }
 
     public static function getOrderedCounties(): Collection

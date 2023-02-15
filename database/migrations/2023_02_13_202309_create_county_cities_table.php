@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('county_cities', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('county_id');
+            $table->unsignedBigInteger('county_id');
             $table->string('name')->unique();
             $table->timestamps();
 
