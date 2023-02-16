@@ -3,8 +3,9 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
-class StoreCityRequest extends FormRequest
+class UpdateCityRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +25,7 @@ class StoreCityRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['required', 'string', 'unique:cities', 'max:191']
+            'name' => ['required', 'string', Rule::unique('cities')->ignore($this->city), 'max:191']
         ];
     }
 }

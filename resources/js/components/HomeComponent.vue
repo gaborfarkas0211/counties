@@ -2,14 +2,15 @@
     <div class="row">
         <div class="col-lg-4 offset-1">
             <county-selector-component :counties="counties"
-                                       @county-selected="onCountySelected"></county-selector-component>
-            <city-input-component :selectedCounty="selectedCounty"
+                                       @county-selected="onCountySelected">
+            </county-selector-component>
+            <add-city-component :selectedCounty="selectedCounty"
                                   @city-created="onCityCreated"
                                   v-if="selectedCounty"
             >
-            </city-input-component>
+            </add-city-component>
         </div>
-        <div class="col-lg-4 overflow-auto offset-1 offset-md-0">
+        <div class="col-lg-6 overflow-auto offset-1 offset-md-0">
             <city-list-component v-if="selectedCounty"
                                  :selected-county="selectedCounty"
                                  :createdCity="createdCity"
@@ -21,7 +22,7 @@
 
 <script>
 import CountySelectorComponent from "./CountySelectorComponent.vue";
-import CityInputComponent from "./CityInputComponent.vue";
+import AddCityComponent from "./AddCityComponent.vue";
 import CityListComponent from "./CityListComponent.vue";
 
 export default {
@@ -34,7 +35,7 @@ export default {
     },
     components: {
         CountySelectorComponent,
-        CityInputComponent,
+        AddCityComponent,
         CityListComponent,
     },
     mounted() {

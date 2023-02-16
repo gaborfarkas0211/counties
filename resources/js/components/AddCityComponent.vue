@@ -43,6 +43,14 @@ export default {
     },
     methods: {
         addNewCity() {
+            if (null === this.name) {
+                this.error = true
+                return;
+            }
+
+            this.saveCity();
+        },
+        saveCity: function () {
             window.axios.post('/api/counties/' + this.selectedCounty.id + '/city', {
                 name: this.name
             }).then(response => {

@@ -1,9 +1,0 @@
-{
-    "labels": {
-        "county": "County",
-        "new_city": "New city"
-    },
-    "buttons": {
-        "new_city" : "Add"
-    }
-}
