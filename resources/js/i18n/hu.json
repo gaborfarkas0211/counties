@@ -1,0 +1,13 @@
+{
+    "labels": {
+        "county": "Megye",
+        "cities": "Városok",
+        "new_city": "Új város"
+    },
+    "buttons": {
+        "new_city": "Felvesz",
+        "save": "Módosít",
+        "delete": "Törlés",
+        "cancel": "Mégsem"
+    }
+}

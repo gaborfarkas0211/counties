@@ -1,6 +1,7 @@
 <?php
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\CityController;
+use App\Http\Controllers\CountyController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,6 +15,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::controller(CountyController::class)->group(function () {
+    Route::get('counties', 'getCounties');
+    Route::get('/counties/{county}/cities', 'showCities');
+});
+Route::controller(CityController::class)->group(function () {
+    Route::post('counties/{county}/city', 'store');
+    Route::put('/cities/{city}',  'update');
+    Route::delete('/cities/{city}',  'destroy');
 });
