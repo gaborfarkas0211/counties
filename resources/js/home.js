@@ -1,7 +1,7 @@
 import {createApp} from 'vue';
 import {createI18n} from 'vue-i18n';
 import HomeComponent from './components/HomeComponent.vue';
-import messages from './messages'
+import {messages, trans} from './messages'
 
 const i18n = createI18n({
     legacy: false,
@@ -11,14 +11,7 @@ const i18n = createI18n({
 
 const app = createApp(HomeComponent);
 
-app.config.globalProperties.$t = (key, ...params) => {
-    const keys = key.split('.');
-    let value = i18n;
-    keys.forEach(k => {
-        value = value[k];
-    });
-    return value ?? key;
-};
+app.config.globalProperties.$t = (key) => trans(key, i18n)
 
 app.use(i18n);
 
