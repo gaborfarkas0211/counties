@@ -47,6 +47,23 @@
         ],
         "post-create-project-cmd": [
             "@php artisan key:generate --ansi"
+        ],
+        "deploy": [
+            "composer copy-env",
+            "composer build:php",
+            "composer build:npm"
+        ],
+        "build:php": [
+            "@php artisan migrate",
+            "@php artisan db:seed",
+            "@php artisan key:generate"
+        ],
+        "build:npm": [
+            "npm install",
+            "npm run build"
+        ],
+        "copy-env": [
+            "cp .env.example .env 2>NUL || copy .env.example .env >NUL"
         ]
     },
     "extra": {
