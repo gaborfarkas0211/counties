@@ -2,7 +2,9 @@ import {createApp} from 'vue';
 import {createI18n} from 'vue-i18n';
 import HomeComponent from './components/HomeComponent.vue';
 import {messages, trans} from './messages'
+import api from './api'
 
+window.axios = api
 const i18n = createI18n({
     legacy: false,
     locale: 'hu',

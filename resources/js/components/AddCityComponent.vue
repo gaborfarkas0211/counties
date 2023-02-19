@@ -51,7 +51,7 @@ export default {
             this.saveCity();
         },
         saveCity: function () {
-            window.axios.post('/api/counties/' + this.selectedCounty.id + '/city', {
+            window.axios.post('/counties/' + this.selectedCounty.id + '/city', {
                 name: this.name
             }).then(response => {
                 if (response.data.success) {

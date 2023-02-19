@@ -70,7 +70,7 @@ export default {
     methods: {
         async getCities() {
             this.isLoading = true
-            const response = await axios.get('/api/counties/' + this.selectedCounty.id + '/cities')
+            const response = await axios.get('/counties/' + this.selectedCounty.id + '/cities')
             this.cities = response.data.data;
 
             this.isLoading = false
@@ -86,12 +86,12 @@ export default {
             this.editableCity = null;
         },
         saveCity(city) {
-            axios.put('/api/cities/' + city.id, {name: city.name}).then(() => {
+            axios.put('/cities/' + city.id, {name: city.name}).then(() => {
                 this.cancelEdit()
             });
         },
         deleteCity(cityId) {
-            axios.delete('/api/cities/' + cityId).then(() => {
+            axios.delete('/cities/' + cityId).then(() => {
                 this.getCities()
                 this.cancelEdit()
             });
