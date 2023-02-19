@@ -50,6 +50,7 @@
         ],
         "deploy": [
             "composer copy-env",
+            "composer install",
             "composer build:php",
             "composer build:npm"
         ],
