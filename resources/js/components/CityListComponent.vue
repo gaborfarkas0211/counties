@@ -16,7 +16,7 @@
                         <label class="fw-bold text-uppercase px-2">{{ $t('labels.cities') }}</label>
                     </div>
                 </div>
-                <div class="list-group" v-for="(city, index) in cities" :key="city.id" v-if="!isLoading"
+                <div class="list-group" v-for="(city) in cities" :key="city.id" v-if="!isLoading"
                      :id="'city-' + city.id">
                     <div class="list-group-item m-2" v-if="!editableCity || city.id !== editableCity.id"
                          :class="createdCity.id === city.id ? 'border-success' : ''">
@@ -24,12 +24,13 @@
                     </div>
                     <div class="list-group-item m-2" v-else>
                         <div class="d-flex justify-content-between align-items-center">
-                            <input type="text" v-model="cities[index].name" class="form-control">
+                            <input type="text" v-model="editableCity.name" class="form-control"
+                                   :class="error ? 'is-invalid' : ''">
                             <div class="d-flex mx-2">
-                                <button class="btn btn-danger btn-sm me-2" @click="deleteCity(city.id)">
+                                <button class="btn btn-danger btn-sm me-2" @click="deleteCity()">
                                     {{ $t('buttons.delete') }}
                                 </button>
-                                <button class="btn btn-primary btn-sm me-2" @click="saveCity(city)">
+                                <button class="btn btn-primary btn-sm me-2" @click="saveCity()">
                                     {{ $t('buttons.save') }}
                                 </button>
                                 <button class="btn btn-outline-secondary btn-sm me-2" @click="cancelEdit()">
@@ -55,6 +56,7 @@ export default {
             cities: [],
             editableCity: null,
             isLoading: false,
+            error: false,
         };
     },
     props: {
@@ -74,26 +76,40 @@ export default {
             this.cities = response.data.data;
 
             this.isLoading = false
-            this.cancelEdit()
         },
         editCity(city) {
             if (null !== this.editableCity) {
                 this.cancelEdit();
             }
-            this.editableCity = city;
+            this.editableCity = {...city};
         },
         cancelEdit() {
-            this.editableCity = null;
+            this.editableCity = null
+            this.error = false
         },
-        saveCity(city) {
-            axios.put('/cities/' + city.id, {name: city.name}).then(() => {
+        saveCity() {
+            let defaultCity = this.getCityBy(editingCity)
+
+            if (defaultCity.name === this.editableCity.name) {
                 this.cancelEdit()
+                return
+            }
+
+            if (0 === this.editableCity.name.length) {
+                this.error = true;
+                return
+            }
+            axios.put('/cities/' + this.editableCity.id, {name: this.editableCity.name}).then(() => {
+                this.reset()
+            }).catch((error) => {
+                if (error.response) {
+                    this.error = true
+                }
             });
         },
-        deleteCity(cityId) {
-            axios.delete('/cities/' + cityId).then(() => {
-                this.getCities()
-                this.cancelEdit()
+        deleteCity() {
+            axios.delete('/cities/' + this.editableCity.id).then(() => {
+                this.reset()
             });
         },
         scrollToCity() {
@@ -103,13 +119,21 @@ export default {
                 createdCityElement.scrollIntoView()
             }
         },
+        getCityBy(requiredCity) {
+            return this.cities.find((city) => city.id === requiredCity.id)
+        },
+        reset() {
+            this.getCities()
+            this.cancelEdit()
+        },
     },
     watch: {
         selectedCounty() {
-            this.getCities();
+            this.reset()
         },
         async createdCity() {
             await this.getCities()
+            this.cancelEdit()
             this.scrollToCity()
         },
     },
