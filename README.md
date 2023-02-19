@@ -15,6 +15,11 @@ This is a county-to-city mapping application. You can add a city to a selected c
 ## Usage
 - Run `php -S 127.0.0.1:8080 -t public` command to start the application
 
+## Tests
+By default (if you used `composer deploy` script), the dev dependencies did not installed. 
+- Run `composer install --dev` command.
+- Run `php artisan test`
+
 ## Author
 * Gábor Farkas
 ## License
