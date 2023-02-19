@@ -46,7 +46,7 @@ export default {
             this.selectedCounty = county;
         },
         getCounties() {
-            window.axios.get('/api/counties').then(response => {
+            window.axios.get('/counties').then(response => {
                 if (response.data.success) {
                     this.counties = response.data.data
                 }

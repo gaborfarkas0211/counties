@@ -17,6 +17,9 @@
     @include('layouts.footer')
 </body>
 
+<script>
+    window.appUrl = "{{ env('APP_URL') }}";
+</script>
 @vite(['resources/js/app.js'])
 @yield('script')
 </html>
