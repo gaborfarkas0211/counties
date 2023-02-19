@@ -54,6 +54,7 @@
             "composer build:npm"
         ],
         "build:php": [
+            "composer install --no-dev",
             "@php artisan migrate",
             "@php artisan db:seed",
             "@php artisan key:generate"

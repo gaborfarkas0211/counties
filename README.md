@@ -9,12 +9,16 @@ This is a county-to-city mapping application. You can add a city to a selected c
 
 ## Installation
 
-- Copy .env.example content into .env file
 - Create a new database
 - Run the `composer deploy` to install and build dependencies
 
 ## Usage
-- Run `php -S 127.0.0.1:8000 -t public` command to start the application
+- Run `php -S 127.0.0.1:8080 -t public` command to start the application
+
+## Tests
+By default (if you used `composer deploy` script), the dev dependencies did not installed. 
+- Run `composer install --dev` command.
+- Run `php artisan test`
 
 ## Author
 * Gábor Farkas
