@@ -30,7 +30,8 @@
                                 <button class="btn btn-danger btn-sm me-2" @click="deleteCity()">
                                     {{ $t('buttons.delete') }}
                                 </button>
-                                <button class="btn btn-primary btn-sm me-2" @click="saveCity()">
+                                <button class="btn btn-primary btn-sm me-2" :disabled="0 === editableCity.name.length"
+                                        @click="saveCity()">
                                     {{ $t('buttons.save') }}
                                 </button>
                                 <button class="btn btn-outline-secondary btn-sm me-2" @click="cancelEdit()">
