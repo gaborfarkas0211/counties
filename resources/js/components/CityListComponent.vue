@@ -89,7 +89,7 @@ export default {
             this.error = false
         },
         saveCity() {
-            let defaultCity = this.getCityBy(editingCity)
+            let defaultCity = this.getCityBy(this.editableCity)
 
             if (defaultCity.name === this.editableCity.name) {
                 this.cancelEdit()
